@@ -1,5 +1,6 @@
 package com.anirudh.WhatsAppClone.message;
 
+import com.anirudh.WhatsAppClone.file.FileUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +14,7 @@ public class MessageMapper {
                 .type(message.getType())
                 .state(message.getState())
                 .createdAt(message.getCreatedDate())
-// todo upload media file.
+                .media(FileUtils.readFileFromLocation(message.getMediaFilePath()))
                 .build();
     }
 }
