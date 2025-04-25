@@ -1,6 +1,7 @@
 package com.anirudh.WhatsAppClone.chat;
 
 import com.anirudh.WhatsAppClone.common.StringResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/chats")
 @RequiredArgsConstructor
+@Tag(name = "Chat")
 public class ChatController {
 
     private final ChatService chatService;

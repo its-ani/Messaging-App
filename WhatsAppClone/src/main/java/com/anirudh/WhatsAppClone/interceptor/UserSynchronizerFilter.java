@@ -18,7 +18,6 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-
 public class UserSynchronizerFilter extends OncePerRequestFilter {
 
     private final UserSynchronizer userSynchronizer;

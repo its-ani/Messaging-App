@@ -11,7 +11,7 @@ spring:
       hibernate:
         format_sql: true
     database: postgresql
-    database-platform: org.hibernate.dialect.PostgresSQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   flyway:
     enabled: false
 
@@ -24,6 +24,8 @@ spring:
     multipart:
       max-file-size: 50MB
 
+springdoc:
+  default-produces-media-type: application/json
 
 application:
   file:

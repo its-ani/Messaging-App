@@ -14,8 +14,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "message")
-@NamedQuery(name = MessageConstants.FIND_MESSAGES_BY_CHAT_ID, query = "SELECT M FROM Message M WHERE M.chat.id = :chatId ORDER BY m.createdDate")
+@Table(name = "messages")
+@NamedQuery(name = MessageConstants.FIND_MESSAGES_BY_CHAT_ID, query = "SELECT M FROM Message M WHERE M.chat.id = :chatId ORDER BY M.createdDate")
 @NamedQuery(name = MessageConstants.SET_MESSAGES_TO_SEEN_BY_CHAT, query = "UPDATE Message SET state = :newState WHERE chat.id = :chatId")
 public class Message extends BaseAuditingEntity {
 
