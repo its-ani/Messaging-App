@@ -1,0 +1,65 @@
+import { Emoji, EmojiService } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Observable } from 'rxjs';
+import { EmojiFrequentlyService } from './emoji-frequently.service';
+import * as i0 from "@angular/core";
+export declare class CategoryComponent implements OnChanges, OnInit, AfterViewInit {
+    ref: ChangeDetectorRef;
+    private emojiService;
+    private frequently;
+    emojis: any[] | null;
+    hasStickyPosition: boolean;
+    name: string;
+    perLine: number;
+    totalFrequentLines: number;
+    recent: string[];
+    custom: any[];
+    i18n: any;
+    id: any;
+    hideObsolete: boolean;
+    notFoundEmoji?: string;
+    virtualize: boolean;
+    virtualizeOffset: number;
+    emojiIsNative?: Emoji['isNative'];
+    emojiSkin: Emoji['skin'];
+    emojiSize: Emoji['size'];
+    emojiSet: Emoji['set'];
+    emojiSheetSize: Emoji['sheetSize'];
+    emojiForceSize: Emoji['forceSize'];
+    emojiTooltip: Emoji['tooltip'];
+    emojiBackgroundImageFn?: Emoji['backgroundImageFn'];
+    emojiImageUrlFn?: Emoji['imageUrlFn'];
+    emojiUseButton?: boolean;
+    /**
+     * Note: the suffix is added explicitly so we know the event is dispatched outside of the Angular zone.
+     */
+    emojiOverOutsideAngular: Emoji['emojiOver'];
+    emojiLeaveOutsideAngular: Emoji['emojiLeave'];
+    emojiClickOutsideAngular: Emoji['emojiClick'];
+    container: ElementRef;
+    label: ElementRef;
+    containerStyles: any;
+    emojisToDisplay: any[];
+    private filteredEmojisSubject;
+    filteredEmojis$: Observable<any[] | null | undefined>;
+    labelStyles: any;
+    labelSpanStyles: any;
+    margin: number;
+    minMargin: number;
+    maxMargin: number;
+    top: number;
+    rows: number;
+    constructor(ref: ChangeDetectorRef, emojiService: EmojiService, frequently: EmojiFrequentlyService);
+    ngOnInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    ngAfterViewInit(): void;
+    get noEmojiToDisplay(): boolean;
+    memoizeSize(): void;
+    handleScroll(scrollTop: number): boolean;
+    updateRecentEmojis(): void;
+    updateDisplay(display: 'none' | 'block'): void;
+    trackById(index: number, item: any): any;
+    private filterEmojis;
+    static ɵfac: i0.ɵɵFactoryDeclaration<CategoryComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<CategoryComponent, "emoji-category", never, { "emojis": { "alias": "emojis"; "required": false; }; "hasStickyPosition": { "alias": "hasStickyPosition"; "required": false; }; "name": { "alias": "name"; "required": false; }; "perLine": { "alias": "perLine"; "required": false; }; "totalFrequentLines": { "alias": "totalFrequentLines"; "required": false; }; "recent": { "alias": "recent"; "required": false; }; "custom": { "alias": "custom"; "required": false; }; "i18n": { "alias": "i18n"; "required": false; }; "id": { "alias": "id"; "required": false; }; "hideObsolete": { "alias": "hideObsolete"; "required": false; }; "notFoundEmoji": { "alias": "notFoundEmoji"; "required": false; }; "virtualize": { "alias": "virtualize"; "required": false; }; "virtualizeOffset": { "alias": "virtualizeOffset"; "required": false; }; "emojiIsNative": { "alias": "emojiIsNative"; "required": false; }; "emojiSkin": { "alias": "emojiSkin"; "required": false; }; "emojiSize": { "alias": "emojiSize"; "required": false; }; "emojiSet": { "alias": "emojiSet"; "required": false; }; "emojiSheetSize": { "alias": "emojiSheetSize"; "required": false; }; "emojiForceSize": { "alias": "emojiForceSize"; "required": false; }; "emojiTooltip": { "alias": "emojiTooltip"; "required": false; }; "emojiBackgroundImageFn": { "alias": "emojiBackgroundImageFn"; "required": false; }; "emojiImageUrlFn": { "alias": "emojiImageUrlFn"; "required": false; }; "emojiUseButton": { "alias": "emojiUseButton"; "required": false; }; }, { "emojiOverOutsideAngular": "emojiOverOutsideAngular"; "emojiLeaveOutsideAngular": "emojiLeaveOutsideAngular"; "emojiClickOutsideAngular": "emojiClickOutsideAngular"; }, never, never, true, never>;
+}
