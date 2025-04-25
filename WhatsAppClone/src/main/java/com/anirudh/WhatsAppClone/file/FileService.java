@@ -38,7 +38,7 @@ public class FileService {
         final String finalUploadPath = fileUploadPath + separator + fileUploadSubPath;
         File targetFolder = new File(finalUploadPath);
         if (!targetFolder.exists()) {
-            Boolean folderCreated = targetFolder.mkdirs();
+            boolean folderCreated = targetFolder.mkdirs();
             if (!folderCreated) {
                 log.warn("Failed to create folder, {}", targetFolder);
                 return null;

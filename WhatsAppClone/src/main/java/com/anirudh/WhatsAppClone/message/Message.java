@@ -2,15 +2,12 @@ package com.anirudh.WhatsAppClone.message;
 
 import com.anirudh.WhatsAppClone.chat.Chat;
 import com.anirudh.WhatsAppClone.common.BaseAuditingEntity;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Configuration;
 
-import java.awt.*;
 
 @Getter
 @Setter
