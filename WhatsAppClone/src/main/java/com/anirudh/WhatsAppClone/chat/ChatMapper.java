@@ -1,8 +1,10 @@
 package com.anirudh.WhatsAppClone.chat;
 
+import lombok.Builder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Builder
 public class ChatMapper {
     public ChatResponse toChatResponse(Chat chat, String senderId) {
 
