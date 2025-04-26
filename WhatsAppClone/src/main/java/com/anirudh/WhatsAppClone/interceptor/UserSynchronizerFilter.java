@@ -22,8 +22,6 @@ public class UserSynchronizerFilter extends OncePerRequestFilter {
 
     private final UserSynchronizer userSynchronizer;
 
-
-
     @Override
     protected void doFilterInternal(@NotNull HttpServletRequest request,
                                     @NotNull HttpServletResponse response,

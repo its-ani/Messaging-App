@@ -1,0 +1,5 @@
+Keycloak Realm Name - "whatsapp-clone"
+Client Id - "whatsapp-clone-app"
+Redirect Url - "http://localhost:4200/*"
+Home Url - "http://localhost:4200"
+Root Url - "http://localhost:4200"

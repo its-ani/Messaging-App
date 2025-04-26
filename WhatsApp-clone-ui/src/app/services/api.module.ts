@@ -9,12 +9,17 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { MessageService } from './services/message.service';
 import { ChatService } from './services/chat.service';
 import { UserService } from './services/user.service';
+import { PickerComponent } from '@ctrl/ngx-emoji-mart';
+
+
 
 /**
  * Module that provides all services and configuration.
  */
 @NgModule({
-  imports: [],
+  imports: [
+    PickerComponent
+  ],
   exports: [],
   declarations: [],
   providers: [
@@ -37,7 +42,7 @@ export class ApiModule {
     }
   }
 
-  constructor( 
+  constructor(
     @Optional() @SkipSelf() parentModule: ApiModule,
     @Optional() http: HttpClient
   ) {

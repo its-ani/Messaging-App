@@ -13,6 +13,7 @@ import {Notification} from './notification';
 import {ChatService} from '../../services/services/chat.service';
 import {PickerComponent} from '@ctrl/ngx-emoji-mart';
 import {EmojiData} from '@ctrl/ngx-emoji-mart/ngx-emoji';
+// import { EmojiMartModule } from 'ctrl-ngx-emoji-mart';
 
 @Component({
   selector: 'app-main',
