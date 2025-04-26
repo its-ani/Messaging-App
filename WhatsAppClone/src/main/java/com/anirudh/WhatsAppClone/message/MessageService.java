@@ -84,21 +84,25 @@ public class MessageService {
 
         final String senderId = getSenderId(chat, authentication);
         final String recipientId = getRecipientId(chat, authentication);
-
+        final String contentType = file.getContentType();
+        final String filename = file.getOriginalFilename();
         final String filePath = fileService.saveFile(file, senderId);
+        assert contentType != null;
+        MessageType type = getMessageType(contentType, filename);
+
         Message message = new Message();
         message.setChat(chat);
         message.setSenderId(senderId);
         message.setReceiverId(recipientId);
-        message.setType(MessageType.IMAGE);
+        message.setType(type);
         message.setMediaFilePath(filePath);
         message.setState(MessageState.SENT);
         messageRepository.save(message);
 
         Notification notification = Notification.builder()
                 .chatId(chat.getId())
-                .type(NotificationType.IMAGE)
-                .messageType(MessageType.IMAGE)
+                .type(getNotificationType(contentType, filename))
+                .messageType(type)
                 .senderId(senderId)
                 .receiverId(recipientId)
                 .media(FileUtils.readFileFromLocation(filePath))
@@ -106,6 +110,48 @@ public class MessageService {
 
         notificationService.sendNotification(recipientId, notification);
 
+    }
+
+    private NotificationType getNotificationType(String contentType, String filename) {
+
+        NotificationType notificationType = null;
+
+        if ((contentType.equals("image/jpeg") || contentType.equals("image/png"))
+                || (filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png"))) {
+            notificationType = NotificationType.IMAGE;
+        }
+        else if ((contentType.equals("audio/mpeg") || contentType.equals("audio/wav") || contentType.equals("audio/aac") || contentType.equals("audio/ogg"))
+                || (filename.endsWith(".mp3") || filename.endsWith(".wav") || filename.endsWith(".aac") || filename.endsWith(".ogg"))) {
+            notificationType = NotificationType.AUDIO;
+        }
+        else if ((contentType.equals("video/mp4") || contentType.equals("video/quicktime") || contentType.equals("video/x-matroska"))
+                || (filename.endsWith(".mp4") || filename.endsWith(".mov") || filename.endsWith(".mkv"))) {
+            notificationType = NotificationType.VIDEO;
+        }
+        else {
+            notificationType = NotificationType.MESSAGE; // Default fallback for normal text messages or unknown file types
+        }
+
+        return notificationType;
+    }
+
+    private MessageType getMessageType(String contentType, String filename) {
+
+        MessageType type = null;
+
+        if ((contentType.equals("image/jpeg") || contentType.equals("image/png"))
+                || (filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png"))) {
+            type = MessageType.IMAGE;
+        }
+        else if ((contentType.equals("audio/mpeg") || contentType.equals("audio/wav") || contentType.equals("audio/aac") || contentType.equals("audio/ogg"))
+                || (filename.endsWith(".mp3") || filename.endsWith(".wav") || filename.endsWith(".aac") || filename.endsWith(".ogg"))) {
+            type = MessageType.AUDIO;
+        }
+        else if ((contentType.equals("application/pdf"))
+                || (filename.endsWith(".pdf"))) {
+            type = MessageType.DOCUMENT;
+        }
+        return type;
     }
 
     private String getSenderId(Chat chat, Authentication authentication) {

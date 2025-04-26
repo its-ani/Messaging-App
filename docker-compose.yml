@@ -28,7 +28,6 @@ services:
     command:
       - "start-dev"
 
-
 networks:
   whatsapp-clone:
     driver: bridge

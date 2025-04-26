@@ -43,14 +43,30 @@
               </div>
             </div>
             <div #scrollableDiv class="h-100 bg-chat p-3 overflow-x-scroll">
-              @for (message of chatMessages; track message) {
+              @for (message of chatMessages; track message.id) {
                 @if (isSelfMessage(message)) {
                   <div class="message-box self">
                     <div class="d-flex flex-column">
                       @if (message.type === 'TEXT') {
                         <span>{{ message.content }}</span>
                       } @else if (message.media) {
-                        <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">
+                          @if (isImage(message.media)) {
+                            <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">
+                          }
+                          @else if (isAudio(message.media)) {
+                            <audio controls>
+                              <source [src]="'data:audio/mp3;base64,' + message.media" type="audio/mp3">
+                              Your browser does not support the audio element.
+                            </audio>
+                          }
+                          @else if (isPDF(message.media)) {
+                            <object data="{{ 'data:application/pdf;base64,' + message.media }}" type="application/pdf" width="600" height="400">
+                              <p>Your browser does not support PDFs. <a href="{{ 'data:application/pdf;base64,' + message.media }}">Download the PDF</a>.</p>
+                            </object>
+
+<!--                            <embed [src]="'data:application/pdf;base64,' + message.media" type="application/pdf" width="600" height="400" />-->
+                          }
+<!--                        <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">-->
                       }
                       <small class="text-black-50">
                         {{ message.createdAt | date:'HH:mm' }}&nbsp;
@@ -73,7 +89,23 @@
                       @if (message.type === 'TEXT') {
                         <span>{{ message.content }}</span>
                       } @else if (message.media) {
-                        <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">
+                          @if (isImage(message.media)) {
+                            <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">
+                          }
+                          @else if (isAudio(message.media)) {
+                            <audio controls>
+                              <source [src]="'data:audio/mp3;base64,' + message.media" type="audio/mp3">
+                              Your browser does not support the audio element.
+                            </audio>
+                          }
+                          @else if (isPDF(message.media)) {
+                            <object data="{{ 'data:application/pdf;base64,' + message.media }}" type="application/pdf" width="600" height="400">
+                              <p>Your browser does not support PDFs. <a href="{{ 'data:application/pdf;base64,' + message.media }}">Download the PDF</a>.</p>
+                            </object>
+
+<!--                            <embed [src]="'data:application/pdf;base64,' + message.media" type="application/pdf" width="600" height="400" />-->
+                          }
+<!--                        <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">-->
                       }
                       <small class="text-black-50">{{ message.createdAt | date:'HH:mm' }}</small>
                     </div>
@@ -89,7 +121,7 @@
                   #inputFile
                   type="file"
                   [hidden]="true"
-                  accept=".jpg, .jpeg,.png,.svg,.mp4,.mov,.mp3"
+                  accept=".jpg, .jpeg,.png,.svg,.mp4,.mov,.mp3, .pdf"
                   (change)="uploadMedia($event.target)"
                 >
                 <i class="fa-regular fa-face-smile cursor-pointer" (click)="showEmojis = !showEmojis"></i>
