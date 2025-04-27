@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, ElementRef, NgModule, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ChatListComponent} from '../../components/chat-list/chat-list.component';
 import {KeycloakService} from '../../utils/keycloak/keycloak.service';
 import {ChatResponse} from '../../services/models/chat-response';
@@ -13,8 +13,6 @@ import {Notification} from './models/notification';
 import {ChatService} from '../../services/services/chat.service';
 import {PickerComponent} from '@ctrl/ngx-emoji-mart';
 import {EmojiData} from '@ctrl/ngx-emoji-mart/ngx-emoji';
-import { CommonModule } from '@angular/common';
-
 
 @Component({
   selector: 'app-main',
@@ -22,10 +20,7 @@ import { CommonModule } from '@angular/common';
     ChatListComponent,
     DatePipe,
     FormsModule,
-    CommonModule,
-    PickerComponent,
-    ChatListComponent,
-    DatePipe
+    PickerComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
@@ -117,10 +112,6 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.messageContent += emoji.native;
   }
 
-  toggleEmojiPicker() {
-    this.showEmojis = !this.showEmojis;
-  }
-
   onClick() {
     this.setMessagesToSeen();
   }
@@ -134,19 +125,6 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewChecked {
 
           const mediaLines = reader.result.toString().split(',')[1];
 
-          let messageType: 'IMAGE' | 'PDF' | 'AUDIO' | 'VIDEO' = 'IMAGE';
-          const mimeType = file.type;
-
-          if (mimeType.startsWith('image/')) {
-            messageType = 'IMAGE';
-          } else if (mimeType === 'application/pdf') {
-            messageType = 'PDF';
-          } else if (mimeType.startsWith('audio/')) {
-            messageType = 'AUDIO';
-          } else if (mimeType.startsWith('video/')) {
-            messageType = 'VIDEO';
-          }
-
           this.messageService.uploadMedia({
             'chat-id': this.selectedChat.id as string,
             body: {
@@ -158,7 +136,7 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewChecked {
                 senderId: this.getSenderId(),
                 receiverId: this.getReceiverId(),
                 content: 'Attachment',
-                type: messageType,
+                type: 'IMAGE',
                 state: 'SENT',
                 media: [mediaLines],
                 createdAt: new Date().toString()
@@ -207,22 +185,6 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewChecked {
       }
     });
   }
-
-// Check if the media is an image (JPG, PNG, etc.)
-  isImage(media: string): boolean {
-    return media.startsWith('data:image');
-  }
-
-// Check if the media is an audio file (MP3)
-  isAudio(media: string): boolean {
-    return media.startsWith('data:audio/mp3');
-  }
-
-// Check if the media is a PDF file
-  isPDF(media: string): boolean {
-    return media.startsWith('data:application/pdf');
-  }
-
 
   private initWebSocket() {
     if (this.keycloakService.keycloak.tokenParsed?.sub) {
@@ -322,8 +284,4 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
     return htmlInputTarget.files[0];
   }
-
-  // trackByMessage(index: number, message: any): any {
-  //   return message.id; // Assuming each message has a unique 'id' field
-  // }
 }

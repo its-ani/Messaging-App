@@ -24,7 +24,7 @@
             <div class="gray-bg p-2">
               <div class="d-flex gap-2">
                 <div class="user-img">
-                  <img src="/user.png" alt="">
+                  <img src="user.png" alt="">
                 </div>
                 @if (selectedChat) {
                   <div class="d-flex flex-column">
@@ -43,31 +43,25 @@
               </div>
             </div>
             <div #scrollableDiv class="h-100 bg-chat p-3 overflow-x-scroll">
-              @for (message of chatMessages; track message.id) {
+              @for (message of chatMessages; track message) {
                 @if (isSelfMessage(message)) {
                   <div class="message-box self">
                     <div class="d-flex flex-column">
                       @if (message.type === 'TEXT') {
                         <span>{{ message.content }}</span>
-                      } @else if (message.media) {
-                          @if (isImage(message.media)) {
-                            <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">
-                          }
-                          @else if (isAudio(message.media)) {
-                            <audio controls>
-                              <source [src]="'data:audio/mp3;base64,' + message.media" type="audio/mp3">
-                              Your browser does not support the audio element.
-                            </audio>
-                          }
-                          @else if (isPDF(message.media)) {
-                            <object data="{{ 'data:application/pdf;base64,' + message.media }}" type="application/pdf" width="600" height="400">
-                              <p>Your browser does not support PDFs. <a href="{{ 'data:application/pdf;base64,' + message.media }}">Download the PDF</a>.</p>
-                            </object>
-
-<!--                            <embed [src]="'data:application/pdf;base64,' + message.media" type="application/pdf" width="600" height="400" />-->
-                          }
-<!--                        <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">-->
+                      } @else if (message.type == "IMAGE") {
+                        <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">
                       }
+                      @else if (message.type == "AUDIO") {
+                        <audio controls>
+                          <source [src]="'data:audio/mp3;base64,' + message.media" type="audio/mp3">
+                          Your browser does not support the audio element.
+                        </audio>
+                      }
+                      @else if (message.type == "PDF") {
+
+                      }
+
                       <small class="text-black-50">
                         {{ message.createdAt | date:'HH:mm' }}&nbsp;
                         @if (message.state === 'SENT') {
@@ -88,24 +82,17 @@
                     <div class="d-flex flex-column align-items-end">
                       @if (message.type === 'TEXT') {
                         <span>{{ message.content }}</span>
-                      } @else if (message.media) {
-                          @if (isImage(message.media)) {
-                            <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">
-                          }
-                          @else if (isAudio(message.media)) {
-                            <audio controls>
-                              <source [src]="'data:audio/mp3;base64,' + message.media" type="audio/mp3">
-                              Your browser does not support the audio element.
-                            </audio>
-                          }
-                          @else if (isPDF(message.media)) {
-                            <object data="{{ 'data:application/pdf;base64,' + message.media }}" type="application/pdf" width="600" height="400">
-                              <p>Your browser does not support PDFs. <a href="{{ 'data:application/pdf;base64,' + message.media }}">Download the PDF</a>.</p>
-                            </object>
+                      } @else if (message.type == "IMAGE") {
+                        <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">
+                      }
+                      @else if (message.type == "AUDIO") {
+                        <audio controls>
+                          <source [src]="'data:audio/mp3;base64,' + message.media" type="audio/mp3">
+                          Your browser does not support the audio element.
+                        </audio>
+                      }
+                      @else if (message.type == "PDF") {
 
-<!--                            <embed [src]="'data:application/pdf;base64,' + message.media" type="application/pdf" width="600" height="400" />-->
-                          }
-<!--                        <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">-->
                       }
                       <small class="text-black-50">{{ message.createdAt | date:'HH:mm' }}</small>
                     </div>
@@ -121,7 +108,7 @@
                   #inputFile
                   type="file"
                   [hidden]="true"
-                  accept=".jpg, .jpeg,.png,.svg,.mp4,.mov,.mp3, .pdf"
+                  accept=".jpg, .jpeg,.png,.svg,.mp4,.mov,.mp3"
                   (change)="uploadMedia($event.target)"
                 >
                 <i class="fa-regular fa-face-smile cursor-pointer" (click)="showEmojis = !showEmojis"></i>
@@ -152,8 +139,8 @@
         </div>
       } @else {
         <div class="d-flex flex-column justify-content-center align-items-center h-100 w-100 bg-chat ">
-          <img width="300" src="/wa_banner.png" alt="">
-          <h2 class="text-black-50">WhatsApp Clone Application By Anirudh</h2>
+          <img width="300" src="wa_banner.png" alt="">
+          <h2 class="text-black-50">WhatsApp Clone Application By Alibou</h2>
           <p class="text-black-50"></p>
         </div>
       }
