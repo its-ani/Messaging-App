@@ -55,8 +55,8 @@ public class MessageController {
             @PathVariable("chat-id") String chatId
     ) {
 
-//        List<MessageResponse> response = messageService.findChatMessages(chatId); added this for debugging
+        List<MessageResponse> response = messageService.findChatMessages(chatId);  //added this for debugging
 
-        return ResponseEntity.ok(messageService.findChatMessages(chatId));
+        return ResponseEntity.ok(response);
     }
 }

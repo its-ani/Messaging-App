@@ -7,5 +7,5 @@ export interface MessageRequest {
   content?: string;
   receiverId?: string;
   senderId?: string;
-  type?: 'TEXT' | 'IMAGE' | 'AUDIO' | 'VIDEO' | 'PDF';
+  type?: 'TEXT' | 'IMAGE' | 'AUDIO' | 'VIDEO' | 'PDF' | 'DOCUMENT';
 }

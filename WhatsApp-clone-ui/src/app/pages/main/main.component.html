@@ -58,8 +58,10 @@
                           Your browser does not support the audio element.
                         </audio>
                       }
-                      @else if (message.type == "PDF") {
-
+                      @else if (message.type == "DOCUMENT") {
+                        <object data="{{ 'data:application/pdf;base64,' + message.media }}" type="application/pdf" width="600" height="400">
+                          <p>Your browser does not support PDFs. <a href="{{ 'data:application/pdf;base64,' + message.media }}">Download the PDF</a>.</p>
+                        </object>
                       }
 
                       <small class="text-black-50">
@@ -82,7 +84,8 @@
                     <div class="d-flex flex-column align-items-end">
                       @if (message.type === 'TEXT') {
                         <span>{{ message.content }}</span>
-                      } @else if (message.type == "IMAGE") {
+                      }
+                      @else if (message.type == "IMAGE") {
                         <img width="200" class="cursor-pointer" [src]="'data:image/jpg;base64,' + message.media" alt="">
                       }
                       @else if (message.type == "AUDIO") {
@@ -91,9 +94,12 @@
                           Your browser does not support the audio element.
                         </audio>
                       }
-                      @else if (message.type == "PDF") {
-
+                      @else if (message.type == "DOCUMENT") {
+                        <object data="{{ 'data:application/pdf;base64,' + message.media }}" type="application/pdf" width="600" height="400">
+                          <p>Your browser does not support PDFs. <a href="{{ 'data:application/pdf;base64,' + message.media }}">Download the PDF</a>.</p>
+                        </object>
                       }
+
                       <small class="text-black-50">{{ message.createdAt | date:'HH:mm' }}</small>
                     </div>
                   </div>
@@ -108,7 +114,7 @@
                   #inputFile
                   type="file"
                   [hidden]="true"
-                  accept=".jpg, .jpeg,.png,.svg,.mp4,.mov,.mp3"
+                  accept=".jpg, .jpeg,.png,.svg,.mp4,.mov,.mp3,.pdf"
                   (change)="uploadMedia($event.target)"
                 >
                 <i class="fa-regular fa-face-smile cursor-pointer" (click)="showEmojis = !showEmojis"></i>
@@ -140,7 +146,7 @@
       } @else {
         <div class="d-flex flex-column justify-content-center align-items-center h-100 w-100 bg-chat ">
           <img width="300" src="wa_banner.png" alt="">
-          <h2 class="text-black-50">WhatsApp Clone Application By Alibou</h2>
+          <h2 class="text-black-50">WhatsApp Clone Application By Anirudh</h2>
           <p class="text-black-50"></p>
         </div>
       }

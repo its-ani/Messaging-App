@@ -10,5 +10,5 @@ export interface MessageResponse {
   receiverId?: string;
   senderId?: string;
   state?: 'SENT' | 'SEEN';
-  type?: 'TEXT' | 'IMAGE' | 'AUDIO' | 'VIDEO' | 'PDF';
+  type?: 'TEXT' | 'IMAGE' | 'AUDIO' | 'VIDEO' | 'DOCUMENT';
 }

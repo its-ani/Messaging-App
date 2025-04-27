@@ -284,4 +284,6 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
     return htmlInputTarget.files[0];
   }
+
+
 }
