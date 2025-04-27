@@ -285,5 +285,20 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewChecked {
     return htmlInputTarget.files[0];
   }
 
+  getBase64FromMessageMedia(message: any): string {
+    if (!message || !message.media) {
+      return '';
+    }
+
+    // message.media is a byte[]
+    const uint8Array = new Uint8Array(message.media);
+    let binary = '';
+
+    uint8Array.forEach(byte => {
+      binary += String.fromCharCode(byte);
+    });
+
+    return btoa(binary); // Base64 encode
+  }
 
 }
