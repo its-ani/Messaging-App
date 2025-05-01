@@ -60,10 +60,19 @@
                         </audio>
                       }
                       @else if (message.type == "DOCUMENT") {
-                        <object data="{{ 'data:application/pdf;base64,' + message.media }}" type="application/pdf" width="200" height="100">
-                          <p>Your browser does not support PDFs. <a href="{{ 'data:application/pdf;base64,' + message.media }}">Download the PDF</a>.</p>
+                        <object
+                          [attr.data]="'data:application/pdf;base64,' + getBase64FromMessageMedia(message)"
+                          type="application/pdf"
+                          width="200"
+                          height="10">
+                          <p>Your browser does not support PDFs.
+                            <a [href]="'data:application/pdf;base64,' + getBase64FromMessageMedia(message)" download="document.pdf">
+                              Download the PDF
+                            </a>.
+                          </p>
                         </object>
-                        <a [href]="'data:application/pdf;base64,' + message.media" download="document.pdf">
+                        <br />
+                        <a [href]="'data:application/pdf;base64,' + getBase64FromMessageMedia(message)" download="document.pdf">
                           <button>Download PDF</button>
                         </a>
                       }
@@ -99,12 +108,22 @@
                         </audio>
                       }
                       @else if (message.type == "DOCUMENT") {
+                        <object
+                          [attr.data]="'data:application/pdf;base64,' + getBase64FromMessageMedia(message)"
+                          type="application/pdf"
+                          width="200"
+                          height="10">
+                          <p>Your browser does not support PDFs.
+                            <a [href]="'data:application/pdf;base64,' + getBase64FromMessageMedia(message)" download="document.pdf">
+                              Download the PDF
+                            </a>.
+                          </p>
+                        </object>
+                        <br />
                         <a [href]="'data:application/pdf;base64,' + getBase64FromMessageMedia(message)" download="document.pdf">
                           <button>Download PDF</button>
                         </a>
                       }
-
-
                       <small class="text-black-50">{{ message.createdAt | date:'HH:mm' }}</small>
                     </div>
                   </div>

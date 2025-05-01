@@ -13,6 +13,8 @@ import {Notification} from './models/notification';
 import {ChatService} from '../../services/services/chat.service';
 import {PickerComponent} from '@ctrl/ngx-emoji-mart';
 import {EmojiData} from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-main',
@@ -40,6 +42,7 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewChecked {
     private chatService: ChatService,
     private messageService: MessageService,
     private keycloakService: KeycloakService,
+    private sanitizer: DomSanitizer
   ) {
   }
 
@@ -285,20 +288,21 @@ export class MainComponent implements OnInit, OnDestroy, AfterViewChecked {
     return htmlInputTarget.files[0];
   }
 
+  sanitizeMediaUrl(base64Data: string): SafeResourceUrl {
+    const imageUrl = 'data:image/jpeg;base64,' + base64Data;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(imageUrl);
+  }
+
+  sanitizeDocumentUrl(base64Data: string): SafeResourceUrl {
+    const pdfUrl = 'data:application/pdf;base64,' + base64Data;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(pdfUrl);
+  }
+
   getBase64FromMessageMedia(message: any): string {
-    if (!message || !message.media) {
+    if (!message || !message.media || message.media.length === 0) {
       return '';
     }
-
-    // message.media is a byte[]
-    const uint8Array = new Uint8Array(message.media);
-    let binary = '';
-
-    uint8Array.forEach(byte => {
-      binary += String.fromCharCode(byte);
-    });
-
-    return btoa(binary); // Base64 encode
+    return message.media[0]; // ✅ Just return the first base64 string
   }
 
 }
